@@ -2,26 +2,26 @@ import java.applet.Applet;
 import java.applet.AudioClip;
 
 public class JumperTwo extends Sprite {
-	// ƒAƒCƒeƒ€æ“¾‰¹
+	// ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½æ“¾ï¿½ï¿½
 	private AudioClip sound;
 
 	public JumperTwo(double x, double y, String fileName, Map map) {
 		super(x, y, fileName, map);
         
-		// ƒTƒEƒ“ƒh‚Ìƒ[ƒh
-		sound = Applet.newAudioClip(getClass().getResource("se/pyoro57_b.wav"));
+		// ï¿½Tï¿½Eï¿½ï¿½ï¿½hï¿½Ìƒï¿½ï¿½[ï¿½h
+		sound = Applet.newAudioClip(getClass().getResource("sound/pyoro57_b.wav"));
 	}
 
 	public void update() {}
     
-	//ƒTƒEƒ“ƒh‚ÌÄ¶
+	//ï¿½Tï¿½Eï¿½ï¿½ï¿½hï¿½ÌÄï¿½
 	public void play() {
 		sound.play();
 	}
 
-	//ƒAƒCƒeƒ€‚ğg‚¤
+	//ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ï¿½
 	public void use(Player player) {
-		// ƒvƒŒƒCƒ„[‚ª“ñ’iƒWƒƒƒ“ƒv‰Â”\
+		// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½iï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Â”\
 		player.setJumperTwo(true);
 	}
 }

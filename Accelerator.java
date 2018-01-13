@@ -2,26 +2,26 @@ import java.applet.Applet;
 import java.applet.AudioClip;
 
 public class Accelerator extends Sprite {
-	// ƒAƒCƒeƒ€æ“¾‰¹
+	// ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½æ“¾ï¿½ï¿½
 	private AudioClip sound;
 
 	public Accelerator(double x, double y, String fileName, Map map) {
 		super(x, y, fileName, map);
 
-		// ƒTƒEƒ“ƒh‚ğƒ[ƒh
-		sound = Applet.newAudioClip(getClass().getResource("se/chari13_c.wav"));
+		// ï¿½Tï¿½Eï¿½ï¿½ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½h
+		sound = Applet.newAudioClip(getClass().getResource("sound/chari13_c.wav"));
 	}
 
 	public void update() {}
     
-	// ƒTƒEƒ“ƒh‚ğÄ¶
+	// ï¿½Tï¿½Eï¿½ï¿½ï¿½hï¿½ï¿½ï¿½Äï¿½
 	public void play() {
 		sound.play();
 	}
     
-	// ƒAƒCƒeƒ€‚ğg‚¤
+	// ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ï¿½
 	public void use(Player player) {
-		// ƒvƒŒƒCƒ„[‚ÌƒXƒs[ƒh‚ªƒAƒbƒvI
+		// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÌƒXï¿½sï¿½[ï¿½hï¿½ï¿½ï¿½Aï¿½bï¿½vï¿½I
 		player.setSpeed(11.0);
 		player.setJump(14.0);
 		player.setJumperTwo(true);

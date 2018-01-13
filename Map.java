@@ -17,80 +17,80 @@ public class Map {
 	String dig = "digchan.gif";
 	String sebe = "sebemushi.gif";
 
-	// ƒ^ƒCƒ‹ƒTƒCƒY
+	// ï¿½^ï¿½Cï¿½ï¿½ï¿½Tï¿½Cï¿½Y
 	public static final int TILE_SIZE = 32;
 
-	// d—Í
+	// ï¿½dï¿½ï¿½
 	public static final double GRAVITY = 0.6;
 
-	// ƒ}ƒbƒv
+	// ï¿½}ï¿½bï¿½v
 	private char[][] map;
 	
-	// s”
+	// ï¿½sï¿½ï¿½
 	private int row;
 
-	// —ñ”
+	// ï¿½ï¿½
 	private int col;
 
-	// •
+	// ï¿½ï¿½
 	private int width;
 
-	// ‚‚³
+	// ï¿½ï¿½ï¿½ï¿½
 	private int height; 
 
-	// ƒuƒƒbƒN‰æ‘œ
+	// ï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½æ‘œ
 	private Image blockImage;
 	private Image coinBlockImage;
 	private Image coinBlockImage2;
 
-	// ƒXƒvƒ‰ƒCƒgƒŠƒXƒg
+	// ï¿½Xï¿½vï¿½ï¿½ï¿½Cï¿½gï¿½ï¿½ï¿½Xï¿½g
 	private LinkedList sprites;
 
-	// ƒRƒCƒ“ƒuƒƒbƒN‚ğ’@‚­‰¹
+	// ï¿½Rï¿½Cï¿½ï¿½ï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½@ï¿½ï¿½ï¿½ï¿½
 	private AudioClip coinSound;
 
-	// ƒAƒCƒeƒ€ƒuƒƒbƒN‚ğ’@‚­‰¹
+	// ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½@ï¿½ï¿½ï¿½ï¿½
 	private AudioClip itemSound;
 
 	public Map(String filename) {
 		sprites = new LinkedList();
 
-		coinSound = Applet.newAudioClip(getClass().getResource("se/coin03.wav"));
-		itemSound = Applet.newAudioClip(getClass().getResource("se/puu69.wav"));
+		coinSound = Applet.newAudioClip(getClass().getResource("sound/coin03.wav"));
+		itemSound = Applet.newAudioClip(getClass().getResource("sound/puu69.wav"));
 
-		// ƒ}ƒbƒv‚Ìƒ[ƒh
+		// ï¿½}ï¿½bï¿½vï¿½Ìƒï¿½ï¿½[ï¿½h
 		load(filename);
 
 		width = TILE_SIZE * col;
 		height = TILE_SIZE * row;
 
-		// ƒCƒ[ƒW‚Ìƒ[ƒh
+		// ï¿½Cï¿½ï¿½ï¿½[ï¿½Wï¿½Ìƒï¿½ï¿½[ï¿½h
 		loadImage();
 	}
 
-	//ƒ}ƒbƒv‚Ì•`‰æ
-	//@param g •`‰æƒIƒuƒWƒFƒNƒg
-	//@param offsetX X•ûŒüƒIƒtƒZƒbƒg
-	//@param offsetY Y•ûŒüƒIƒtƒZƒbƒg
+	//ï¿½}ï¿½bï¿½vï¿½Ì•`ï¿½ï¿½
+	//@param g ï¿½`ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½g
+	//@param offsetX Xï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½tï¿½Zï¿½bï¿½g
+	//@param offsetY Yï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½tï¿½Zï¿½bï¿½g
 	public void draw(Graphics g, int offsetX, int offsetY) {
-		// ƒIƒtƒZƒbƒg‚ğŒ³‚É•`‰æ”ÍˆÍ‚ğ‹‚ß‚é
+		// ï¿½Iï¿½tï¿½Zï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ï¿½É•`ï¿½ï¿½ÍˆÍ‚ï¿½ï¿½ï¿½ï¿½ß‚ï¿½
 		int firstTileX = pixelsToTiles(-offsetX);
 		int lastTileX = firstTileX + pixelsToTiles(MainPanel.WIDTH) + 10;
 
-		// •`‰æ”ÍˆÍ‚ªƒ}ƒbƒv‚Ì‘å‚«‚³‚æ‚è‘å‚«‚­‚È‚ç‚È‚¢‚æ‚¤‚É’²®
+		// ï¿½`ï¿½ï¿½ÍˆÍ‚ï¿½ï¿½}ï¿½bï¿½vï¿½Ì‘å‚«ï¿½ï¿½ï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½È‚ï¿½È‚ï¿½ï¿½æ‚¤ï¿½É’ï¿½ï¿½ï¿½
 		lastTileX = Math.min(lastTileX, col);
 
 		int firstTileY = pixelsToTiles(-offsetY);
 		int lastTileY = firstTileY + pixelsToTiles(MainPanel.HEIGHT) + 10;
 
-		// •`‰æ”ÍˆÍ‚ªƒ}ƒbƒv‚Ì‘å‚«‚³‚æ‚è‘å‚«‚­‚È‚ç‚È‚¢‚æ‚¤‚É’²®
+		// ï¿½`ï¿½ï¿½ÍˆÍ‚ï¿½ï¿½}ï¿½bï¿½vï¿½Ì‘å‚«ï¿½ï¿½ï¿½ï¿½ï¿½å‚«ï¿½ï¿½ï¿½È‚ï¿½È‚ï¿½ï¿½æ‚¤ï¿½É’ï¿½ï¿½ï¿½
 		lastTileY = Math.min(lastTileY, row);
 
 		for (int i = firstTileY; i < lastTileY; i++) {
 			for (int j = firstTileX; j < lastTileX; j++) {
-				// map‚Ì’l‚É‰‚¶‚Ä‰æ‘œ‚ğ•`‚­
+				// mapï¿½Ì’lï¿½É‰ï¿½ï¿½ï¿½ï¿½Ä‰æ‘œï¿½ï¿½`ï¿½ï¿½
 				switch (map[i][j]) {
-					//ƒuƒƒbƒN
+					//ï¿½uï¿½ï¿½ï¿½bï¿½N
 					case '1' :
 						g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, null);
 						break;
@@ -100,14 +100,14 @@ public class Map {
 	}
     
 
-	// (newX, newY)‚ÅÕ“Ë‚·‚éƒuƒƒbƒN‚ÌÀ•W‚ğ•Ô‚·
-	// @param sprite ƒXƒvƒ‰ƒCƒg‚Ö‚ÌQÆ
-	// @param newX XÀ•W
-	// @param newY YÀ•W
-	// @return Õ“Ë‚·‚éƒuƒƒbƒN‚ÌÀ•W
+	// (newX, newY)ï¿½ÅÕ“Ë‚ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½Ìï¿½ï¿½Wï¿½ï¿½Ô‚ï¿½
+	// @param sprite ï¿½Xï¿½vï¿½ï¿½ï¿½Cï¿½gï¿½Ö‚ÌQï¿½ï¿½
+	// @param newX Xï¿½ï¿½ï¿½W
+	// @param newY Yï¿½ï¿½ï¿½W
+	// @return ï¿½Õ“Ë‚ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½Ìï¿½ï¿½W
 	public Point getTileCollision(Sprite sprite, double newX, double newY) {
-		// ¬”“_ˆÈ‰ºØ‚èã‚°
-		// •‚“®¬”“_‚ÌŠÖŒW‚ÅØ‚èã‚°‚µ‚È‚¢‚ÆÕ“Ë‚µ‚Ä‚È‚¢‚Æ”»’è‚³‚ê‚é‰Â”\«—L‚è
+		// ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½È‰ï¿½ï¿½Ø‚ï¿½ã‚°
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ÌŠÖŒWï¿½ÅØ‚ï¿½ã‚°ï¿½ï¿½ï¿½È‚ï¿½ï¿½ÆÕ“Ë‚ï¿½ï¿½Ä‚È‚ï¿½ï¿½Æ”ï¿½ï¿½è‚³ï¿½ï¿½ï¿½Â”\ï¿½ï¿½ï¿½Lï¿½ï¿½
 		newX = Math.ceil(newX);
 		newY = Math.ceil(newY);
 
@@ -121,10 +121,10 @@ public class Map {
 		int toTileX = pixelsToTiles(toX + sprite.getWidth() - 1);
 		int toTileY = pixelsToTiles(toY + sprite.getHeight() - 1);
 
-		// Õ“Ë‚µ‚Ä‚¢‚é‚©‚Ì”»’è
+		// ï¿½Õ“Ë‚ï¿½ï¿½Ä‚ï¿½ï¿½é‚©ï¿½Ì”ï¿½ï¿½ï¿½
 		for (int x = fromTileX; x <= toTileX; x++) {
 			for (int y = fromTileY; y <= toTileY; y++) {
-				// ‰æ–ÊŠO‚ÍÕ“Ë
+				// ï¿½ï¿½ÊŠOï¿½ÍÕ“ï¿½
 				if(x < 0 || x >= col) {
 					return new Point(x, y);
 				}
@@ -133,7 +133,7 @@ public class Map {
 					return new Point(x, y);
 				}
 
-				// ƒuƒƒbƒN‚ª‚ ‚ê‚ÎÕ“Ë
+				// ï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎÕ“ï¿½
 				if(map[y][x] == '1' || map[y][x] == 'C' || map[y][x] == 'c' || map[y][x] == 'I') {
                     			return new Point(x, y);
 				}
@@ -142,28 +142,28 @@ public class Map {
 		return null;
 	}
 
-	// ƒsƒNƒZƒ‹’PˆÊ‚ğƒ^ƒCƒ‹’PˆÊ‚É•ÏX
-	// @param pixels ƒsƒNƒZƒ‹’PˆÊ
-	// @return ƒ^ƒCƒ‹’PˆÊ
+	// ï¿½sï¿½Nï¿½Zï¿½ï¿½ï¿½Pï¿½Ê‚ï¿½ï¿½^ï¿½Cï¿½ï¿½ï¿½Pï¿½Ê‚É•ÏX
+	// @param pixels ï¿½sï¿½Nï¿½Zï¿½ï¿½ï¿½Pï¿½ï¿½
+	// @return ï¿½^ï¿½Cï¿½ï¿½ï¿½Pï¿½ï¿½
 	public static int pixelsToTiles(double pixels) {
 		return (int)Math.floor(pixels / TILE_SIZE);
 	}
     
-	// ƒ^ƒCƒ‹’PˆÊ‚ğƒsƒNƒZƒ‹’PˆÊ‚É•ÏX
-	// @param tiles ƒ^ƒCƒ‹’PˆÊ
-	// @return ƒsƒNƒZƒ‹’PˆÊ
+	// ï¿½^ï¿½Cï¿½ï¿½ï¿½Pï¿½Ê‚ï¿½ï¿½sï¿½Nï¿½Zï¿½ï¿½ï¿½Pï¿½Ê‚É•ÏX
+	// @param tiles ï¿½^ï¿½Cï¿½ï¿½ï¿½Pï¿½ï¿½
+	// @return ï¿½sï¿½Nï¿½Zï¿½ï¿½ï¿½Pï¿½ï¿½
 	public static int tilesToPixels(int tiles) {
 		return tiles * TILE_SIZE;
 	}
     
-	// ƒCƒ[ƒW‚Ìƒ[ƒh
+	// ï¿½Cï¿½ï¿½ï¿½[ï¿½Wï¿½Ìƒï¿½ï¿½[ï¿½h
 	private void loadImage() {
 		ImageIcon icon = new ImageIcon(getClass().getResource("image/block.gif"));
 		blockImage = icon.getImage();
 	}
 
-	// ƒ}ƒbƒv‚Ìƒ[ƒh
-	// @param filename ƒ}ƒbƒvƒtƒ@ƒCƒ‹
+	// ï¿½}ï¿½bï¿½vï¿½Ìƒï¿½ï¿½[ï¿½h
+	// @param filename ï¿½}ï¿½bï¿½vï¿½tï¿½@ï¿½Cï¿½ï¿½
 	private String enemy(){
 		Random r = new Random();
 
@@ -197,18 +197,18 @@ public class Map {
 
 	private void load(String filename) {
 		try {
-			// ƒtƒ@ƒCƒ‹‚ğŠJ‚­
+			// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½ï¿½
 			BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("map/" + filename)));
 
-			// s”‚ğ“Ç‚İ‚Ş
+			// ï¿½sï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
 			String line = br.readLine();
 			row = Integer.parseInt(line);
 
-			// —ñ”‚ğ“Ç‚İ‚Ş
+			// ï¿½ñ”‚ï¿½Ç‚İï¿½ï¿½ï¿½
 			line = br.readLine();
 			col = Integer.parseInt(line);
 
-			// ƒ}ƒbƒv‚ğì¬
+			// ï¿½}ï¿½bï¿½vï¿½ï¿½ï¿½ì¬
 			map = new char[row][col];
 
 			for (int i = 0; i < row; i++) {
@@ -218,32 +218,32 @@ public class Map {
 					map[i][j] = line.charAt(j);
 
 					switch (map[i][j]) {
-						// ƒuƒƒbƒN
+						// ï¿½uï¿½ï¿½ï¿½bï¿½N
 						case '2':
 							sprites.add(new Block(tilesToPixels(j), tilesToPixels(i), "block.gif", this));
 							break;
-						// —‚¿‚é”»’è
+						// ï¿½ï¿½ï¿½ï¿½ï¿½é”»ï¿½ï¿½
 						case '3':
 							sprites.add(new Block(tilesToPixels(j), tilesToPixels(i), "none.png", this));
 							break;
-						// ƒ[ƒv1
+						// ï¿½ï¿½ï¿½[ï¿½v1
 						case 'w':
 							sprites.add(new Warp(tilesToPixels(j), tilesToPixels(i), "warp_.gif", this));
 							break;
-						// ƒ[ƒv2
+						// ï¿½ï¿½ï¿½[ï¿½v2
 						case 'W':
 							sprites.add(new Warp2(tilesToPixels(j), tilesToPixels(i), "warp_.gif", this));
 							break;
-						// ƒS[ƒ‹
+						// ï¿½Sï¿½[ï¿½ï¿½
 						case 'g':
 							sprites.add(new Goal(tilesToPixels(j), tilesToPixels(i), "stripe.gif", this));
 							break;
-						// “G
+						// ï¿½G
 						case 'k':
 							sprites.add(new Kuribo(tilesToPixels(j), tilesToPixels(i), enemy(), this));
 							break;
-						// ‰Á‘¬ƒAƒCƒeƒ€
-						case 'a':  // ‰Á‘¬ƒAƒCƒeƒ€
+						// ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½Cï¿½eï¿½ï¿½
+						case 'a':  // ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½Cï¿½eï¿½ï¿½
 							sprites.add(new Accelerator(tilesToPixels(j), tilesToPixels(i), "accelerator.gif", this));
 							break;
 					}

@@ -3,93 +3,93 @@ import java.applet.AudioClip;
 import java.awt.Point;
 
 public class Kuribo extends Sprite {
-	// ƒXƒs[ƒh
+	// ï¿½Xï¿½sï¿½[ï¿½h
 	private static final double SPEED = 1;
 
-	// ‘¬“x
+	// ï¿½ï¿½ï¿½x
 	protected double vx;
 	protected double vy;
 
-	// “¥‚Ü‚ê‚½‚Æ‚«‚Ì‰¹
+	// ï¿½ï¿½ï¿½Ü‚ê‚½ï¿½Æ‚ï¿½ï¿½Ì‰ï¿½
 	private AudioClip sound;
 
 	public Kuribo(double x, double y, String filename, Map map) {
 		super(x, y, filename, map);
 
-		// ¶‚ÉˆÚ“®‚ð‘±‚¯‚é
+		// ï¿½ï¿½ï¿½ÉˆÚ“ï¿½ï¿½ð‘±‚ï¿½ï¿½ï¿½
 		vx = -SPEED;
 		vy = 0;
         
-		// ƒTƒEƒ“ƒh‚Ìƒ[ƒh
-		sound = Applet.newAudioClip(getClass().getResource("se/gucha.wav"));
+		// ï¿½Tï¿½Eï¿½ï¿½ï¿½hï¿½Ìƒï¿½ï¿½[ï¿½h
+		sound = Applet.newAudioClip(getClass().getResource("sound/gucha.wav"));
 	}
 
 	public void update() {
-		// d—Í‚Å‰ºŒü‚«‚É‰Á‘¬“x‚ª‚©‚©‚é
+		// ï¿½dï¿½Í‚Å‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‰ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		vy+=Map.GRAVITY;
 
-		// x•ûŒü‚Ì“–‚½‚è”»’è
-		// ˆÚ“®æÀ•W‚ð‹‚ß‚é
+		// xï¿½ï¿½ï¿½ï¿½ï¿½Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
+		// ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½
 		double newX = x + vx;
 
-		// ˆÚ“®æÀ•W‚ÅÕ“Ë‚·‚éƒ^ƒCƒ‹‚ÌˆÊ’u‚ðŽæ“¾
-		// x•ûŒü‚¾‚¯l‚¦‚é‚Ì‚ÅyÀ•W‚Í•Ï‰»‚µ‚È‚¢‚Æ‰¼’è
+		// ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½ÅÕ“Ë‚ï¿½ï¿½ï¿½^ï¿½Cï¿½ï¿½ï¿½ÌˆÊ’uï¿½ï¿½ï¿½æ“¾
+		// xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½ï¿½Ì‚ï¿½yï¿½ï¿½ï¿½Wï¿½Í•Ï‰ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½Æ‰ï¿½ï¿½ï¿½
 		Point tile = map.getTileCollision(this, newX, y);
 
 		if(tile == null) {
-			// Õ“Ë‚·‚éƒ^ƒCƒ‹‚ª‚È‚¯‚ê‚ÎˆÚ“®
+			// ï¿½Õ“Ë‚ï¿½ï¿½ï¿½^ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ÎˆÚ“ï¿½
 			x = newX;
 		} else {
-			// Õ“Ë‚·‚éƒ^ƒCƒ‹‚ª‚ ‚éê‡
-			// ‰E‚ÖˆÚ“®’†‚È‚Ì‚Å‰E‚ÌƒuƒƒbƒN‚ÆÕ“Ë
+			// ï¿½Õ“Ë‚ï¿½ï¿½ï¿½^ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡
+			// ï¿½Eï¿½ÖˆÚ“ï¿½ï¿½ï¿½ï¿½È‚Ì‚Å‰Eï¿½Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½ÆÕ“ï¿½
 			if(vx > 0) {
 
-			// ƒuƒƒbƒN‚É‚ß‚è‚±‚Þ or Œ„ŠÔ‚ª‚È‚¢‚æ‚¤‚ÉˆÊ’u’²®
+			// ï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½É‚ß‚è‚±ï¿½ï¿½ or ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½È‚ï¿½ï¿½æ‚¤ï¿½ÉˆÊ’uï¿½ï¿½ï¿½ï¿½
 			x = Map.tilesToPixels(tile.x) - width;
 
-			// ¶‚ÖˆÚ“®’†‚È‚Ì‚Å¶‚ÌƒuƒƒbƒN‚ÆÕ“Ë
+			// ï¿½ï¿½ï¿½ÖˆÚ“ï¿½ï¿½ï¿½ï¿½È‚Ì‚Åï¿½ï¿½Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½ÆÕ“ï¿½
 			} else if(vx < 0) {
-				// ˆÊ’u’²®
+				// ï¿½Ê’uï¿½ï¿½ï¿½ï¿½
 				x = Map.tilesToPixels(tile.x + 1);
             		}
 
-			// ˆÚ“®•ûŒü‚Ì”½“]
+			// ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì”ï¿½ï¿½]
 			vx = -vx;
         	}
 
-	        // y•ûŒü‚Ì“–‚½‚è”»’è
-        	// ˆÚ“®æÀ•W‚ð‹‚ß‚é
+	        // yï¿½ï¿½ï¿½ï¿½ï¿½Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
+        	// ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½
 		double newY = y + vy;
 
-		// ˆÚ“®æÀ•W‚ÅÕ“Ë‚·‚éƒ^ƒCƒ‹‚ÌˆÊ’u‚ðŽæ“¾
-		// y•ûŒü‚¾‚¯l‚¦‚é‚Ì‚ÅxÀ•W‚Í•Ï‰»‚µ‚È‚¢‚Æ‰¼’è
+		// ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½ÅÕ“Ë‚ï¿½ï¿½ï¿½^ï¿½Cï¿½ï¿½ï¿½ÌˆÊ’uï¿½ï¿½ï¿½æ“¾
+		// yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½ï¿½Ì‚ï¿½xï¿½ï¿½ï¿½Wï¿½Í•Ï‰ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½Æ‰ï¿½ï¿½ï¿½
 		tile = map.getTileCollision(this, x, newY);
 
 		if(tile == null) {
-			// Õ“Ë‚·‚éƒ^ƒCƒ‹‚ª‚È‚¯‚ê‚ÎˆÚ“®
+			// ï¿½Õ“Ë‚ï¿½ï¿½ï¿½^ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ÎˆÚ“ï¿½
 			y = newY;
 		} else {
-			// Õ“Ë‚·‚éƒ^ƒCƒ‹‚ª‚ ‚éê‡
-			if (vy > 0) { // ‰º‚ÖˆÚ“®’†‚È‚Ì‚Å‰º‚ÌƒuƒƒbƒN‚ÆÕ“Ëi’…’nj
+			// ï¿½Õ“Ë‚ï¿½ï¿½ï¿½^ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡
+			if (vy > 0) { // ï¿½ï¿½ï¿½ÖˆÚ“ï¿½ï¿½ï¿½ï¿½È‚Ì‚Å‰ï¿½ï¿½Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½ÆÕ“Ëiï¿½ï¿½ï¿½nï¿½j
 
-			// ˆÊ’u’²®
+			// ï¿½Ê’uï¿½ï¿½ï¿½ï¿½
 			y = Map.tilesToPixels(tile.y) - height;
 
-			// ’…’n‚µ‚½‚Ì‚Åy•ûŒü‘¬“x‚ð0‚É
+			// ï¿½ï¿½ï¿½nï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½0ï¿½ï¿½
 			vy = 0;
 
-			// ã‚ÖˆÚ“®’†‚Ìˆ×ã‚ÌƒuƒƒbƒN‚Æ“Vˆä‚ªÕ“Ë
+			// ï¿½ï¿½ÖˆÚ“ï¿½ï¿½ï¿½ï¿½Ìˆ×ï¿½Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½Æ“Vï¿½ä‚ªï¿½Õ“ï¿½
 			} else if(vy < 0) {
-				// ˆÊ’u’²®
+				// ï¿½Ê’uï¿½ï¿½ï¿½ï¿½
 				y = Map.tilesToPixels(tile.y + 1);
 
-				// “Vˆä‚É‚Ô‚Â‚©‚Á‚½‚Ì‚Åy•ûŒü‘¬“x‚ð0‚É
+				// ï¿½Vï¿½ï¿½É‚Ô‚Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½0ï¿½ï¿½
 				vy = 0;
 			}
 		}
 	}
     
-	//ƒTƒEƒ“ƒh‚ÌÄ¶
+	//ï¿½Tï¿½Eï¿½ï¿½ï¿½hï¿½ÌÄï¿½
 	public void play() {
 		sound.play();
 	}

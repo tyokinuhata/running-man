@@ -15,22 +15,22 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.swing.JPanel;
 
 public class MainPanel extends JPanel implements Runnable, KeyListener {
-	// ‰æ–ÊØ‘Ö•Ï”
-	//ƒ^ƒCƒgƒ‹‰æ–Ê
+	// ï¿½ï¿½ÊØ‘Ö•Ïï¿½
+	//ï¿½^ï¿½Cï¿½gï¿½ï¿½ï¿½ï¿½ï¿½
 	static final int TITLE = 0;
-	// ƒQ[ƒ€‰æ–Ê
+	// ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½
 	static final int GAME = 1;
-	// ƒQ[ƒ€ƒI[ƒo[‰æ–Ê
+	// ï¿½Qï¿½[ï¿½ï¿½ï¿½Iï¿½[ï¿½oï¿½[ï¿½ï¿½ï¿½
 	static final int GAMEOVER = 2;
-	// ƒNƒŠƒA‰æ–Ê
+	// ï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½
 	static final int CLIA = 3;
-	// ƒ[ƒh‰æ–Ê
+	// ï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½ï¿½
 	static final int SET = 4;
 	
-	//‰æ–Ê‘ã“ü•Ï”
+	//ï¿½ï¿½Ê‘ï¿½ï¿½ï¿½Ïï¿½
 	int mode;
 
-	//‰æ‘œ‘ã“ü•Ï”
+	//ï¿½æ‘œï¿½ï¿½ï¿½ï¿½Ïï¿½
 	Image MainTitleImg;
 	Image VerTitleImg;
 	Image EnterPushImg;
@@ -42,54 +42,54 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 
 	private static boolean hantei = false;
 	
-	// ƒpƒlƒ‹ƒTƒCƒY
+	// ï¿½pï¿½lï¿½ï¿½ï¿½Tï¿½Cï¿½Y
 	public static final int WIDTH = 750;
 	public static final int HEIGHT = 350;
 
-	// ƒ}ƒbƒv
+	// ï¿½}ï¿½bï¿½v
 	private Map map;
 
 	String mapname = "map1.dat";
 
-	// ƒvƒŒƒCƒ„[
+	// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[
 	private Player player;
 
-	// ƒAƒNƒVƒ‡ƒ“ƒL[
+	// ï¿½Aï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Lï¿½[
 	private ActionKey goLeftKey;
 	private ActionKey goRightKey;
 	private ActionKey jumpKey;
 
-	// ƒQ[ƒ€ƒ‹[ƒv—pƒXƒŒƒbƒh
+	// ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½vï¿½pï¿½Xï¿½ï¿½ï¿½bï¿½h
 	private Thread gameLoop;
  
-	//‰¹Šy
+	//ï¿½ï¿½ï¿½y
 	private static final String[] bgmNames = {"BGM.mid", "String.mid","muon1.mid","yuugure.mid"};
 	private AudioClip BGM2;
 
 	public MainPanel() {
-		// ƒpƒlƒ‹‚Ì„§ƒTƒCƒY‚ğİ’èApack()‚·‚é‚Æ‚«‚É•K—v
+		// ï¿½pï¿½lï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½Tï¿½Cï¿½Yï¿½ï¿½İ’ï¿½Apack()ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½É•Kï¿½v
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-		// ƒpƒlƒ‹‚ªƒL[“ü—Í‚ğó‚¯•t‚¯‚é‚æ‚¤‚É‚·‚é
+		// ï¿½pï¿½lï¿½ï¿½ï¿½ï¿½ï¿½Lï¿½[ï¿½ï¿½ï¿½Í‚ï¿½ï¿½ó‚¯•tï¿½ï¿½ï¿½ï¿½æ‚¤ï¿½É‚ï¿½ï¿½ï¿½
 		setFocusable(true);
 
-		// ƒAƒNƒVƒ‡ƒ“ƒL[‚Ìì¬
+		// ï¿½Aï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Lï¿½[ï¿½Ìì¬
 		goLeftKey = new ActionKey();
 		goRightKey = new ActionKey();
 
-		// ƒWƒƒƒ“ƒv‚ÍƒL[‚ğ‰Ÿ‚µ‘±‚¯‚Ä‚à1‰ñ‚Ì‚İƒWƒƒƒ“ƒv
+		// ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ÍƒLï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½1ï¿½ï¿½Ì‚İƒWï¿½ï¿½ï¿½ï¿½ï¿½v
 		jumpKey = new ActionKey();
 
-		// ƒ}ƒbƒv‚Ìì¬
+		// ï¿½}ï¿½bï¿½vï¿½Ìì¬
 		map = new Map(mapname);
 
-		// ƒvƒŒƒCƒ„[‚Ìì¬
+		// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ìì¬
 		player = new Player(192, 32, "player.gif", map);
 
-		// BGM‚Ìƒ[ƒh
+		// BGMï¿½Ìƒï¿½ï¿½[ï¿½h
 		for(int i=0; i<bgmNames.length; i++) {
 			try {
-				MidiPlayer.load("se/" + bgmNames[i]);
+				MidiPlayer.load("sound/" + bgmNames[i]);
 			} catch (MidiUnavailableException e) {
 				e.printStackTrace();
 			} catch (InvalidMidiDataException e) {
@@ -99,33 +99,33 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 			}
 		}
 
-		// ƒL[ƒCƒxƒ“ƒgƒŠƒXƒi[‚ğ“o˜^
+		// ï¿½Lï¿½[ï¿½Cï¿½xï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Xï¿½iï¿½[ï¿½ï¿½oï¿½^
 		addKeyListener(this);
 	
-		// ƒQ[ƒ€ƒ‹[ƒvŠJn
+		// ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½vï¿½Jï¿½n
 		gameLoop = new Thread(this);
 		gameLoop.start();
 
 		setBackground(Color.white);
-		//ƒ^ƒCƒgƒ‹‰æ–Êi‰Šúj
+		//ï¿½^ï¿½Cï¿½gï¿½ï¿½ï¿½ï¿½Êiï¿½ï¿½ï¿½ï¿½ï¿½j
 		mode = TITLE;
     	}
     
-	//ƒ^ƒCƒgƒ‹‰æ–Ê
+	//ï¿½^ï¿½Cï¿½gï¿½ï¿½ï¿½ï¿½ï¿½
 	private void drawTitle(Graphics g) {
 		setBackground(Color.WHITE);
 
-		//ƒ^ƒCƒgƒ‹‰æ‘œiMainTitleImg‚É‰æ‘œ‚ğ‘ã“ü‚·‚éˆ—j
+		//ï¿½^ï¿½Cï¿½gï¿½ï¿½ï¿½æ‘œï¿½iMainTitleImgï¿½É‰æ‘œï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½éˆï¿½ï¿½ï¿½j
 		if(MainTitleImg == null) {
 			MainTitleImg = Toolkit.getDefaultToolkit().getImage("image/MainTitle.png");
 		}
 			
-		//ƒTƒuƒ^ƒCƒgƒ‹‰æ‘œiVerTitleImg‚É‰æ‘œ‚ğ‘ã“ü‚·‚éˆ—j
+		//ï¿½Tï¿½uï¿½^ï¿½Cï¿½gï¿½ï¿½ï¿½æ‘œï¿½iVerTitleImgï¿½É‰æ‘œï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½éˆï¿½ï¿½ï¿½j
 		if(VerTitleImg == null) {
 			VerTitleImg = Toolkit.getDefaultToolkit().getImage("image/VerTitle.png");
 		}
 			
-		//Enter‚ğ‰Ÿ‚·‚ª‚æ‚¢iEnterPushImg‚É‰æ‘œ‚ğ‘ã“ü‚·‚éˆ—j
+		//Enterï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ‚¢ï¿½iEnterPushImgï¿½É‰æ‘œï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½éˆï¿½ï¿½ï¿½j
 		if(EnterPushImg == null) {
 			EnterPushImg = Toolkit.getDefaultToolkit().getImage("image/EnterPush.png");
 		}
@@ -138,7 +138,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 			Char2 = Toolkit.getDefaultToolkit().getImage("image/PlayerT.gif");
 		}
 			
-		// ‰æ‘œ•\¦
+		// ï¿½æ‘œï¿½\ï¿½ï¿½
 		g.drawImage(MainTitleImg, 170, 10, this);
 		g.drawImage(VerTitleImg, 335, 80, this);
 		g.drawImage(Char1, 360, 150, this);
@@ -147,87 +147,87 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 	}
 	
 	public void warp(){
-	// ƒ}ƒbƒv‚Ìì¬
+	// ï¿½}ï¿½bï¿½vï¿½Ìì¬
 		map = new Map("map2.dat");        
 		player = new Player(192, 32, "player.gif", map);
 	}
 
 	public void warp2(){
-	// ƒ}ƒbƒv‚Ìì¬
+	// ï¿½}ï¿½bï¿½vï¿½Ìì¬
 		map = new Map("map3.dat");        	
 		player = new Player(192, 32, "player.gif", map);
 	}
 
-	// ƒQ[ƒ€ƒI[ƒo[
-	// GameOver‚Ìˆ—
+	// ï¿½Qï¿½[ï¿½ï¿½ï¿½Iï¿½[ï¿½oï¿½[
+	// GameOverï¿½Ìï¿½ï¿½ï¿½
 	private void drawGameOver(Graphics g) {
 		setBackground(Color.BLACK);
 		
-		//ƒ^ƒCƒgƒ‹‰æ‘œiDeadImg‚É‰æ‘œ‚ğ‘ã“ü‚·‚éˆ—j
+		//ï¿½^ï¿½Cï¿½gï¿½ï¿½ï¿½æ‘œï¿½iDeadImgï¿½É‰æ‘œï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½éˆï¿½ï¿½ï¿½j
 		if(DeadImg == null) {
 			DeadImg = Toolkit.getDefaultToolkit().getImage("image/Dead.png");
 		}
 		
-		// ‰æ‘œ•\¦
+		// ï¿½æ‘œï¿½\ï¿½ï¿½
 		g.drawImage(DeadImg, 220, 110, this);
 	}
 
 	private void drawCliar(Graphics g) {
 		setBackground(Color.WHITE);
-		// ƒ^ƒCƒgƒ‹‰æ‘œiCliarImg‚É‰æ‘œ‚ğ‘ã“ü‚·‚éˆ—j
+		// ï¿½^ï¿½Cï¿½gï¿½ï¿½ï¿½æ‘œï¿½iCliarImgï¿½É‰æ‘œï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½éˆï¿½ï¿½ï¿½j
 		if(CliarImg == null) {
 			CliarImg = Toolkit.getDefaultToolkit().getImage("image/Omedeto.png");
 		}
 		
-		// ‰æ‘œ•\¦
+		// ï¿½æ‘œï¿½\ï¿½ï¿½
 		g.drawImage(CliarImg, 220, 110, this);
 	
 	}
 
 	private void drawSetup(Graphics g) {
 		setBackground(Color.BLACK);
-		// ƒ^ƒCƒgƒ‹‰æ‘œiCliarImg‚É‰æ‘œ‚ğ‘ã“ü‚·‚éˆ—j
+		// ï¿½^ï¿½Cï¿½gï¿½ï¿½ï¿½æ‘œï¿½iCliarImgï¿½É‰æ‘œï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½éˆï¿½ï¿½ï¿½j
 		if (LoadImg == null) {
 			LoadImg = Toolkit.getDefaultToolkit().getImage("image/loadNow.png");
 		}
 		
-		// ‰æ‘œ‚Ì•\¦
+		// ï¿½æ‘œï¿½Ì•\ï¿½ï¿½
 		g.drawImage(LoadImg, 190, 110, this);	
 	}
 	
-	// ‰æ–ÊØ‘Öimode‚ªTITLE‚È‚ç‚ÎdrawTitleƒƒ\ƒbƒh, mode‚ªGAME‚È‚ç‚ÎPlayGAMEƒƒ\ƒbƒh‚ÉˆÚ“®j
+	// ï¿½ï¿½ÊØ‘Öimodeï¿½ï¿½TITLEï¿½È‚ï¿½ï¿½drawTitleï¿½ï¿½ï¿½\ï¿½bï¿½h, modeï¿½ï¿½GAMEï¿½È‚ï¿½ï¿½PlayGAMEï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½ÉˆÚ“ï¿½ï¿½j
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		if(mode == 0) {
 			drawTitle(g);
 		} else if(mode == 1) {
-			// •`‰æˆ—
-			// @param •`‰æƒIƒuƒWƒFƒNƒg
+			// ï¿½`ï¿½æˆï¿½ï¿½
+			// @param ï¿½`ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½g
 
 			g.setColor(Color.WHITE);
 			g.fillRect(0, 0, getWidth(), getHeight());
 
-			// X•ûŒü‚ÌƒIƒtƒZƒbƒg‚ÌŒvZ
+			// Xï¿½ï¿½ï¿½ï¿½ï¿½ÌƒIï¿½tï¿½Zï¿½bï¿½gï¿½ÌŒvï¿½Z
 			int offsetX = MainPanel.WIDTH / 2 - (int)player.getX();
 
-			// ƒ}ƒbƒv‚Ì’[‚Å‚ÍƒXƒNƒ[ƒ‹‚µ‚È‚¢‚æ‚¤‚É‚·‚é
+			// ï¿½}ï¿½bï¿½vï¿½Ì’[ï¿½Å‚ÍƒXï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½æ‚¤ï¿½É‚ï¿½ï¿½ï¿½
 			offsetX = Math.min(offsetX, 0);
 			offsetX = Math.max(offsetX, MainPanel.WIDTH - map.getWidth());
 	
-			// Y•ûŒü‚ÌƒIƒtƒZƒbƒg‚ÌŒvZ
+			// Yï¿½ï¿½ï¿½ï¿½ï¿½ÌƒIï¿½tï¿½Zï¿½bï¿½gï¿½ÌŒvï¿½Z
 			int offsetY = MainPanel.HEIGHT / 2 - (int)player.getY();
-			// ƒ}ƒbƒv‚Ì’[‚Å‚ÍƒXƒNƒ[ƒ‹‚µ‚È‚¢‚æ‚¤‚É‚·‚é
+			// ï¿½}ï¿½bï¿½vï¿½Ì’[ï¿½Å‚ÍƒXï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½æ‚¤ï¿½É‚ï¿½ï¿½ï¿½
 	       	 	offsetY = Math.min(offsetY, 0);
 	       	 	offsetY = Math.max(offsetY, MainPanel.HEIGHT - map.getHeight());
 
-			// ƒ}ƒbƒv‚Ì•`‰æ
+			// ï¿½}ï¿½bï¿½vï¿½Ì•`ï¿½ï¿½
 			map.draw(g, offsetX, offsetY);
 
-			// ƒvƒŒƒCƒ„[‚Ì•`‰æ
+			// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì•`ï¿½ï¿½
 			player.draw(g, offsetX, offsetY);
 
-			// ƒXƒvƒ‰ƒCƒg‚Ì•`‰æ
-			// ƒ}ƒbƒv‚É‚¢‚éƒXƒvƒ‰ƒCƒg‚ğæ“¾
+			// ï¿½Xï¿½vï¿½ï¿½ï¿½Cï¿½gï¿½Ì•`ï¿½ï¿½
+			// ï¿½}ï¿½bï¿½vï¿½É‚ï¿½ï¿½ï¿½Xï¿½vï¿½ï¿½ï¿½Cï¿½gï¿½ï¿½ï¿½æ“¾
 			LinkedList sprites = map.getSprites();
 			Iterator iterator = sprites.iterator();
 
@@ -244,106 +244,106 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 		}
 	}
 
-	// ƒQ[ƒ€ƒ‹[ƒv
+	// ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½v
     	public void run() {
 		while (true) {
 			if(mode == 0){
 				MidiPlayer.play(1);
 				repaint();
 			} else if(mode == 1){        		
-				// ‰EƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚ê‚Î‰EŒü‚«‚É‰Á‘¬
+				// ï¿½Eï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Î‰Eï¿½ï¿½ï¿½ï¿½ï¿½É‰ï¿½ï¿½ï¿½
 				player.accelerateRight();
 
 				if(jumpKey.isPressed()) {
-					// ƒWƒƒƒ“ƒv‚·‚é
+					// ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½
 					player.jump();
 				}
  
-	            		// ƒvƒŒƒCƒ„[‚Ìó‘Ô‚ÌXV
+	            		// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ìï¿½Ô‚ÌXï¿½V
           	  		player.update();
 
-				// ƒ}ƒbƒv‚É‚¢‚éƒXƒvƒ‰ƒCƒg‚ğæ“¾
+				// ï¿½}ï¿½bï¿½vï¿½É‚ï¿½ï¿½ï¿½Xï¿½vï¿½ï¿½ï¿½Cï¿½gï¿½ï¿½ï¿½æ“¾
           			LinkedList sprites = map.getSprites();            
 			        Iterator iterator = sprites.iterator();
 			        
 				while(iterator.hasNext()) {
 					Sprite sprite = (Sprite)iterator.next();
 
-					// ƒXƒvƒ‰ƒCƒg‚Ìó‘Ô‚ÌXV
+					// ï¿½Xï¿½vï¿½ï¿½ï¿½Cï¿½gï¿½Ìï¿½Ô‚ÌXï¿½V
 					sprite.update();
 
-					// ƒvƒŒƒCƒ„[‚ÆÚG‚µ‚Ä‚½‚ç
+					// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÆÚGï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
 					if(player.isCollision(sprite)) {
-						//“G
+						//ï¿½G
 						if (sprite instanceof Kuribo) {
 							Kuribo kuribo = (Kuribo)sprite;
 
-							// ã‚©‚ç“¥‚Ü‚ê‚Ä‚½‚ç
+							// ï¿½ã‚©ï¿½ç“¥ï¿½Ü‚ï¿½Ä‚ï¿½ï¿½ï¿½
 							if((int)player.getY() < (int)kuribo.getY()) {
-								// “G‚ÍÁ‚¦‚é
+								// ï¿½Gï¿½Íï¿½ï¿½ï¿½ï¿½ï¿½
 								sprites.remove(kuribo);
 
-								// ƒTƒEƒ“ƒh
+								// ï¿½Tï¿½Eï¿½ï¿½ï¿½h
 								kuribo.play();
 
-								// “¥‚Ş‚ÆƒvƒŒƒCƒ„[‚ÍÄƒWƒƒƒ“ƒv
+								// ï¿½ï¿½ï¿½Ş‚Æƒvï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÍÄƒWï¿½ï¿½ï¿½ï¿½ï¿½v
 								player.setForceJump(true);
 								player.jump();
 								break;
 							} else {
-								// ƒQ[ƒ€ƒI[ƒo[
+								// ï¿½Qï¿½[ï¿½ï¿½ï¿½Iï¿½[ï¿½oï¿½[
 								mode = 2;
 								repaint();
 							}
 
 						}else if(sprite instanceof Block) {
-							// “G
+							// ï¿½G
 							Block block = (Block)sprite;
 
-							// ã‚©‚ç“¥‚Ü‚ê‚Ä‚½‚ç
+							// ï¿½ã‚©ï¿½ç“¥ï¿½Ü‚ï¿½Ä‚ï¿½ï¿½ï¿½
 							if((int)player.getY() > (int)block.getY()) {
 								break;
 							} else {
-								// ƒQ[ƒ€ƒI[ƒo[
+								// ï¿½Qï¿½[ï¿½ï¿½ï¿½Iï¿½[ï¿½oï¿½[
 								mode = 2;
 								repaint();
 							}
 						} else if  (sprite instanceof Warp) {
-							//ƒ[ƒv
+							//ï¿½ï¿½ï¿½[ï¿½v
 							warp();
 							repaint();
 						} else if  (sprite instanceof Warp2) {
-							// ƒ[ƒv2
+							// ï¿½ï¿½ï¿½[ï¿½v2
 							warp2();
 							repaint();
 						}
 
 						if(sprite instanceof Goal) {
-							// “G
+							// ï¿½G
 							Goal goal = (Goal)sprite;        			
 							mode = 3;
 							repaint();
-						} else if(sprite instanceof Accelerator) {  // ‰Á‘¬ƒAƒCƒeƒ€
-							// ƒAƒCƒeƒ€‚ÍÁ‚¦‚é
+						} else if(sprite instanceof Accelerator) {  // ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½Cï¿½eï¿½ï¿½
+							// ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½Íï¿½ï¿½ï¿½ï¿½ï¿½
 							sprites.remove(sprite);
 							Accelerator accelerator = (Accelerator)sprite;
 
-							// ƒTƒEƒ“ƒh
+							// ï¿½Tï¿½Eï¿½ï¿½ï¿½h
 							accelerator.play();
 
-							// ƒAƒCƒeƒ€‚ğ‚»‚Ìê‚Åg‚¤
+							// ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½Ågï¿½ï¿½
 							accelerator.use(player);
 							break;
-						// “ñ’iƒWƒƒƒ“ƒvƒAƒCƒeƒ€
+						// ï¿½ï¿½iï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Aï¿½Cï¿½eï¿½ï¿½
 						} else if(sprite instanceof JumperTwo) {
-							// ƒAƒCƒeƒ€‚ÍÁ‚¦‚é
+							// ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½Íï¿½ï¿½ï¿½ï¿½ï¿½
 							sprites.remove(sprite);
 							JumperTwo jumperTwo = (JumperTwo)sprite;
 
-							// ƒTƒEƒ“ƒh
+							// ï¿½Tï¿½Eï¿½ï¿½ï¿½h
 							jumperTwo.play();
 
-							// ƒAƒCƒeƒ€‚ğ‚»‚Ìê‚Åg‚¤
+							// ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½Ågï¿½ï¿½
 							jumperTwo.use(player);
 							break;                        
 						}
@@ -353,29 +353,29 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 			}else if(mode == 2){
 
 	        	}else if(mode == 3){
-          			// ƒ}ƒbƒv‚Ìì¬
+          			// ï¿½}ï¿½bï¿½vï¿½Ìì¬
                 		map = new Map("map1.dat");
 
-                		// ƒvƒŒƒCƒ„[‚ğì¬
+                		// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ì¬
 	                	player = new Player(192, 32, "player.gif", map);
     				repaint();
         		}else if(mode == 4){
 				MidiPlayer.play(2);
 
-				// ƒ}ƒbƒv‚ğì¬
+				// ï¿½}ï¿½bï¿½vï¿½ï¿½ï¿½ì¬
           			map = new Map(mapname);
 
-				// ƒvƒŒƒCƒ„[‚ğì¬
+				// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ì¬
 				player = new Player(192, 32, "player.gif", map);
 				mode = 0;
     	      			repaint();
 				
 			}
 
-            		// Ä•`‰æ
+            		// ï¿½Ä•`ï¿½ï¿½
             		repaint();
 
-	            	// ‹x~
+	            	// ï¿½xï¿½~
           	  	try {
              			Thread.sleep(20);
           	  	} catch(InterruptedException e) {
@@ -384,8 +384,8 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
         	}
 	}
 
-	// ƒL[‚ª‰Ÿ‚³‚ê‚½‚çƒL[‚ğ‰Ÿ‚³‚ê‚½ó‘Ô‚É•ÏX
-	// @param e ƒL[ƒCƒxƒ“ƒg
+	// ï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½Ô‚É•ÏX
+	// @param e ï¿½Lï¿½[ï¿½Cï¿½xï¿½ï¿½ï¿½g
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 
@@ -414,7 +414,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 				break;
 		}
 
-		// Ä•`‰æ
+		// ï¿½Ä•`ï¿½ï¿½
 		repaint();
 
 		} else if(mode == 3){
@@ -424,13 +424,13 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 				
 					break;
 			}
-			// Ä•`‰æ
+			// ï¿½Ä•`ï¿½ï¿½
 			repaint();
 		}
 	}
 
-	//ƒL[‚ª—£‚³‚ê‚½‚çƒL[‚Ìó‘Ô‚ğu—£‚³‚ê‚½v‚É•Ï‚¦‚é
-	//@param e ƒL[ƒCƒxƒ“ƒg
+	//ï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½Lï¿½[ï¿½Ìï¿½Ô‚ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½vï¿½É•Ï‚ï¿½ï¿½ï¿½
+	//@param e ï¿½Lï¿½[ï¿½Cï¿½xï¿½ï¿½ï¿½g
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 

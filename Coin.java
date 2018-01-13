@@ -2,19 +2,19 @@ import java.applet.Applet;
 import java.applet.AudioClip;
 
 public class Coin extends Sprite {
-	// ƒRƒCƒ“æ“¾‰¹
+	// ï¿½Rï¿½Cï¿½ï¿½ï¿½æ“¾ï¿½ï¿½
 	private AudioClip sound;
 
 	public Coin(double x, double y, String fileName, Map map) {
 		super(x, y, fileName, map);
 
-		// ƒTƒEƒ“ƒh‚Ìƒ[ƒh
-		sound = Applet.newAudioClip(getClass().getResource("se/coin03.wav"));
+		// ï¿½Tï¿½Eï¿½ï¿½ï¿½hï¿½Ìƒï¿½ï¿½[ï¿½h
+		sound = Applet.newAudioClip(getClass().getResource("sound/coin03.wav"));
 	}
 
 	public void update() {}
 
-	// ƒTƒEƒ“ƒh‚ÌÄ¶
+	// ï¿½Tï¿½Eï¿½ï¿½ï¿½hï¿½ÌÄï¿½
 	public void play() {
 		sound.play();
 	}
