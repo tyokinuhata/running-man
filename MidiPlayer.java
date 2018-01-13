@@ -9,82 +9,82 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
 
 public class MidiPlayer {
-	// “o˜^‰Â”\MIDIƒtƒ@ƒCƒ‹‚ÌÅ‘å”
+	// ç™»éŒ²å¯èƒ½MIDIãƒ•ã‚¡ã‚¤ãƒ«ã®æœ€å¤§æ•°
 	private static final int MAX_SEQUENCE = 256;
 
-	// MIDIƒƒ^ƒCƒxƒ“ƒg
+	// MIDIãƒ¡ã‚¿ã‚¤ãƒ™ãƒ³ãƒˆ
 	private static final int END_OF_TRACK_MESSAGE = 47;
 
-	// MIDIƒV[ƒPƒ“ƒX
+	// MIDIã‚·ãƒ¼ã‚±ãƒ³ã‚¹
 	private static Sequence[] sequences = new Sequence[MAX_SEQUENCE];
 
-	// MIDIƒV[ƒPƒ“ƒT
+	// MIDIã‚·ãƒ¼ã‚±ãƒ³ã‚µ
 	private static Sequencer sequencer;
 
-	// “o˜^MIDIƒtƒ@ƒCƒ‹”
+	// ç™»éŒ²MIDIãƒ•ã‚¡ã‚¤ãƒ«æ•°
 	private static int counter = 0;
 
-	// Ä¶’†‚ÌMIDIƒV[ƒPƒ“ƒX‚Ì“o˜^”Ô†
+	// å†ç”Ÿä¸­ã®MIDIã‚·ãƒ¼ã‚±ãƒ³ã‚¹ã®ç™»éŒ²ç•ªå·
 	private static int playSequenceNo = -1;
 
-	// MIDIƒV[ƒPƒ“ƒX‚ÌŠJn’n“_
+	// MIDIã‚·ãƒ¼ã‚±ãƒ³ã‚¹ã®é–‹å§‹åœ°ç‚¹
 	private static long startTick = 0;
 
-	// MIDIƒtƒ@ƒCƒ‹‚Ìƒ[ƒh
-	// @param url MIDIƒtƒ@ƒCƒ‹‚ÌURL
+	// MIDIãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ­ãƒ¼ãƒ‰
+	// @param url MIDIãƒ•ã‚¡ã‚¤ãƒ«ã®URL
 	public static void load(URL url) throws MidiUnavailableException, InvalidMidiDataException, IOException {
 		if(sequencer == null) {
-			// ƒV[ƒPƒ“ƒT‚Ìæ“¾
+			// ã‚·ãƒ¼ã‚±ãƒ³ã‚µã®å–å¾—
 			sequencer = MidiSystem.getSequencer();
 
-			// ƒV[ƒPƒ“ƒT‚ğŠJ‚­
+			// ã‚·ãƒ¼ã‚±ãƒ³ã‚µã‚’é–‹ã
 			sequencer.open();
 
-			// ƒƒ^ƒCƒxƒ“ƒgƒŠƒXƒi[‚Ì“o˜^
+			// ãƒ¡ã‚¿ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼ã®ç™»éŒ²
 			sequencer.addMetaEventListener(new MyMetaEventListener());
 		}
 
-		// MIDIƒV[ƒPƒ“ƒX‚Ì“o˜^
+		// MIDIã‚·ãƒ¼ã‚±ãƒ³ã‚¹ã®ç™»éŒ²
 		sequences[counter] = MidiSystem.getSequence(url);
 
 		counter++;
 	}
 
-	//MIDIƒtƒ@ƒCƒ‹‚Ìƒ[ƒh
-	//@param filename MIDIƒtƒ@ƒCƒ‹–¼
+	//MIDIãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ­ãƒ¼ãƒ‰
+	//@param filename MIDIãƒ•ã‚¡ã‚¤ãƒ«å
 	public static void load(String filename) throws MidiUnavailableException, InvalidMidiDataException, IOException {
 		URL url = MidiPlayer.class.getResource(filename);
 
 		load(url);
 	}
 
-	// Ä¶ŠJn
-	// @param no “o˜^”Ô†
+	// å†ç”Ÿé–‹å§‹
+	// @param no ç™»éŒ²ç•ªå·
 	public static void play(int no) {
-		// “o˜^‚³‚ê‚Ä‚È‚¯‚ê‚Î‰½‚à‚µ‚È‚¢
+		// ç™»éŒ²ã•ã‚Œã¦ãªã‘ã‚Œã°ä½•ã‚‚ã—ãªã„
 		if (sequences[no] == null) {
 			return;
 		}
 
-		// Œ»İÄ¶’†‚ÌMIDIƒtƒ@ƒCƒ‹‚Æ“¯‚¶ê‡‚Í‰½‚à‚µ‚È‚¢
+		// ç¾åœ¨å†ç”Ÿä¸­ã®MIDIãƒ•ã‚¡ã‚¤ãƒ«ã¨åŒã˜å ´åˆã¯ä½•ã‚‚ã—ãªã„
 		if(playSequenceNo == no) {
 			return;
 		}
 
-		// •Ê‚ÌMIDIƒV[ƒPƒ“ƒX‚ğÄ¶‚·‚éê‡‚ÍŒ»İÄ¶’†‚ÌƒV[ƒPƒ“ƒX‚ğ’â~
+		// åˆ¥ã®MIDIã‚·ãƒ¼ã‚±ãƒ³ã‚¹ã‚’å†ç”Ÿã™ã‚‹å ´åˆã¯ç¾åœ¨å†ç”Ÿä¸­ã®ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ã‚’åœæ­¢
 		stop();
 
 		try {
-			// ƒV[ƒPƒ“ƒT‚ÉMIDIƒV[ƒPƒ“ƒX‚ğƒZƒbƒg
+			// ã‚·ãƒ¼ã‚±ãƒ³ã‚µã«MIDIã‚·ãƒ¼ã‚±ãƒ³ã‚¹ã‚’ã‚»ãƒƒãƒˆ
 			sequencer.setSequence(sequences[no]);
 
-			// “o˜^”Ô†‚Ì‹L‰¯
+			// ç™»éŒ²ç•ªå·ã®è¨˜æ†¶
 			playSequenceNo = no;
 
-			// MIDIƒV[ƒPƒ“ƒT‚ÌƒXƒ^[ƒg’n“_‚ğ‹L˜^iƒ‹[ƒv‚Å‚«‚é‚æ‚¤‚Éj
+			// MIDIã‚·ãƒ¼ã‚±ãƒ³ã‚µã®ã‚¹ã‚¿ãƒ¼ãƒˆåœ°ç‚¹ã‚’è¨˜éŒ²ï¼ˆãƒ«ãƒ¼ãƒ—ã§ãã‚‹ã‚ˆã†ã«ï¼‰
 			startTick = sequencer.getMicrosecondPosition();
 
-			// Ä¶ŠJn
+			// å†ç”Ÿé–‹å§‹
 			sequencer.start();
 
 		} catch (InvalidMidiDataException e) {
@@ -93,7 +93,7 @@ public class MidiPlayer {
 	}
 
     
-	//’â~
+	//åœæ­¢
 	public static void stop() {
 		if(sequencer.isRunning()) {
 			sequencer.stop();
@@ -101,15 +101,15 @@ public class MidiPlayer {
 		}
 	}
 
-	// ƒƒ^ƒCƒxƒ“ƒgƒŠƒXƒi[iƒ‹[ƒvÄ¶‚Ìˆ×j
+	// ãƒ¡ã‚¿ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼ï¼ˆãƒ«ãƒ¼ãƒ—å†ç”Ÿã®ç‚ºï¼‰
 	private static class MyMetaEventListener implements MetaEventListener {
 		public void meta(MetaMessage meta) {
 			if(meta.getType() == END_OF_TRACK_MESSAGE) {
 				if(sequencer != null && sequencer.isOpen()) {
-					// MIDIƒV[ƒPƒ“ƒXÄ¶ˆÊ’u‚ğÅ‰‚É–ß‚·
+					// MIDIã‚·ãƒ¼ã‚±ãƒ³ã‚¹å†ç”Ÿä½ç½®ã‚’æœ€åˆã«æˆ»ã™
 					sequencer.setMicrosecondPosition(startTick);
 
-					// Å‰‚©‚çÄ¶
+					// æœ€åˆã‹ã‚‰å†ç”Ÿ
 					sequencer.start();
 				}
 

@@ -1,55 +1,55 @@
 public class ActionKey {
-	// �L�[�̃��[�h
-	// �L�[��������Ă���Ԃ�isPressed()��true��Ԃ�
+	// キーのモード
+	// キーが押されている間はisPressed()はtrueを返す
 	public static final int NORMAL = 0;
 
-	// �L�[���͂��߂ɉ����ꂽ�Ƃ�����isPressed()��true��Ԃ�
-	// �L�[�������ꑱ���Ă�2��ڈȍ~��false��Ԃ�
-	// ���̃��[�h���g���ƃW�����v�{�^�������������Ă��W�����v���J��Ԃ��Ȃ�
+	// キーがはじめに押されたときだけisPressed()はtrueを返す
+	// キーが押され続けても2回目以降はfalseを返す
+	// このモードを使うとジャンプボタンを押し続けてもジャンプを繰り返さない
 	public static final int DETECT_INITIAL_PRESS_ONLY = 1;
     
-	// �L�[�̏��
-	// �L�[�������ꂽ
+	// キーの状態
+	// キーが離された
 	private static final int STATE_RELEASED = 0;
 
-	// �L�[��������Ă���
+	// キーが押されている
 	private static final int STATE_PRESSED = 1;
 
-	// �L�[���������̂�҂��Ă���
+	// キーが離されるのを待っている
 	private static final int STATE_WAITING_FOR_RELEASE = 2;
 
-	// �L�[�̃��[�h
+	// キーのモード
 	private int mode;
 
-	// �L�[�������ꂽ��
+	// キーが押された回数
 	private int amount;
 
-	// �L�[�̏��
+	// キーの状態
 	private int state;
     
-	// ���ʂ̃R���X�g���N�^�ł̓m�[�}�����[�h
+	// 普通のコンストラクタではノーマルモード
 	public ActionKey() {
 		this(NORMAL);
 	}
     
-	// ���[�h���w��ł���R���X�g���N�^
-	// @param mode �L�[�̃��[�h
+	// モードを指定できるコンストラクタ
+	// @param mode キーのモード
 	public ActionKey(int mode) {
 		this.mode = mode;
 
 		reset();
 	}
 
-	// �L�[�̏�Ԃ����Z�b�g
+	// キーの状態をリセット
 	public void reset() {
 		state = STATE_RELEASED;
 
 		amount = 0;
 	}
     
-	// �L�[�������ꂽ�Ƃ��Ăяo��
+	// キーが押されたとき呼び出す
 	public void press() {
-		// STATE_WAITING_FOR_RELEASE�̂Ƃ��͉����ꂽ���ƂɂȂ�Ȃ�
+		// STATE_WAITING_FOR_RELEASEのときは押されたことにならない
 
 		if(state != STATE_WAITING_FOR_RELEASE) {
 			amount++;
@@ -57,21 +57,21 @@ public class ActionKey {
 		}
 	}
     
-	// �L�[�������ꂽ�Ƃ��Ăяo��
+	// キーが離されたとき呼び出す
 	public void release() {
 		state = STATE_RELEASED;
 	}
     
-	// �L�[�������ꂽ��
-	// @return �����ꂽ��true��Ԃ�
+	// キーが押されたか
+	// @return 押されたらtrueを返す
 	public boolean isPressed() {
 		if (amount != 0) {
 			if(state == STATE_RELEASED) {
 				amount = 0;
 			} else if(mode == DETECT_INITIAL_PRESS_ONLY) {
-				// �ŏ���1�񂾂�true��Ԃ��ĉ����ꂽ���Ƃɂ���
-				// ���񂩂��STATE_WAITING_FOR_RELEASE�ɂȂ邽��
-				// �L�[�����������Ă������ꂽ���ƂɂȂ�Ȃ�
+				// 最初の1回だけtrueを返して押されたことにする
+				// 次回からはSTATE_WAITING_FOR_RELEASEになるため
+				// キーを押し続けても押されたことにならない
 				state = STATE_WAITING_FOR_RELEASE;
 
 				amount = 0;

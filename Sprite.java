@@ -5,22 +5,22 @@ import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
 public abstract class Sprite {
-	// ˆÊ’u
+	// ä½ç½®
 	protected double x;
 	protected double y;
     
-	// •
+	// å¹…
 	protected int width;
-	// ‚‚³
+	// é«˜ã•
 	protected int height;
     
-	// ƒXƒvƒ‰ƒCƒg‰æ‘œ
+	// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆç”»åƒ
 	protected Image image;
 
-	// ƒAƒjƒ[ƒVƒ‡ƒ“—pƒJƒEƒ“ƒ^
+	// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨ã‚«ã‚¦ãƒ³ã‚¿
 	protected int count;
 
-	// ƒ}ƒbƒv‚Ö‚ÌQÆ
+	// ãƒãƒƒãƒ—ã¸ã®å‚ç…§
 	protected Map map;
     
 	int ani = 0;
@@ -33,12 +33,12 @@ public abstract class Sprite {
 		width = 32;
 		height = 32;
 
-		// ƒCƒ[ƒW‚Ìƒ[ƒh
+		// ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ãƒ­ãƒ¼ãƒ‰
 		loadImage(fileName);
 
 		count = 0;
         
-		// ƒAƒjƒ[ƒVƒ‡ƒ“—pƒXƒŒƒbƒh‚ÌŠJn
+		// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨ã‚¹ãƒ¬ãƒƒãƒ‰ã®é–‹å§‹
 		AnimationThread thread = new AnimationThread();
 		thread.start();
 	}
@@ -51,37 +51,37 @@ public abstract class Sprite {
 		width = 32;
 		height = 32;
 
-		// ƒCƒ[ƒW‚Ìƒ[ƒh
+		// ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ãƒ­ãƒ¼ãƒ‰
 		loadImage(fileName);
 
 		count = 0;
 		ani = i;
         
-		// ƒAƒjƒ[ƒVƒ‡ƒ“—pƒXƒŒƒbƒh‚ÌŠJn
+		// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨ã‚¹ãƒ¬ãƒƒãƒ‰ã®é–‹å§‹
 		AnimationThread thread = new AnimationThread();
 		thread.start();
 	}
 
-	//ƒXƒvƒ‰ƒCƒg‚Ìó‘Ô‚ğXV‚·‚é
+	//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®çŠ¶æ…‹ã‚’æ›´æ–°ã™ã‚‹
 	public abstract void update();
 
-	//ƒXƒvƒ‰ƒCƒg‚Ì•`‰æ
-	//@param g •`‰æƒIƒuƒWƒFƒNƒg
-	//@param offsetX X•ûŒüƒIƒtƒZƒbƒg
-	//@param offsetY Y•ûŒüƒIƒtƒZƒbƒg
+	//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®æç”»
+	//@param g æç”»ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	//@param offsetX Xæ–¹å‘ã‚ªãƒ•ã‚»ãƒƒãƒˆ
+	//@param offsetY Yæ–¹å‘ã‚ªãƒ•ã‚»ãƒƒãƒˆ
 	public void draw(Graphics g, int offsetX, int offsetY) {
 		g.drawImage(image, (int) x + offsetX, (int) y + offsetY,
 			    (int) x + offsetX + width, (int) y + offsetY + height,
 			    count * width, 0, count * width + width, height, null);
 	}
 
-	// ‘¼‚ÌƒXƒvƒ‰ƒCƒg‚ÆÚG‚µ‚Ä‚¢‚é‚©‚Ì”»’è
-	// @param sprite ƒXƒvƒ‰ƒCƒg
+	// ä»–ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã¨æ¥è§¦ã—ã¦ã„ã‚‹ã‹ã®åˆ¤å®š
+	// @param sprite ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 	public boolean isCollision(Sprite sprite) {
 		Rectangle playerRect = new Rectangle((int)x, (int)y, width, height);
 		Rectangle spriteRect = new Rectangle((int)sprite.getX(), (int)sprite.getY(), sprite.getWidth(), sprite.getHeight());
 
-		// ©•ª‚Ì‹éŒ`‚Æ‘Šè‚Ì‹éŒ`‚ªd‚È‚Á‚Ä‚¢‚é‚©‚Ì”»’è
+		// è‡ªåˆ†ã®çŸ©å½¢ã¨ç›¸æ‰‹ã®çŸ©å½¢ãŒé‡ãªã£ã¦ã„ã‚‹ã‹ã®åˆ¤å®š
 		if(playerRect.intersects(spriteRect)) {
 			return true;
 		}
@@ -108,25 +108,25 @@ public abstract class Sprite {
 		return height;
 	}
 
-	// ƒCƒ[ƒW‚Ìƒ[ƒh
-	// @param filename ƒCƒ[ƒWƒtƒ@ƒCƒ‹–¼
+	// ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ãƒ­ãƒ¼ãƒ‰
+	// @param filename ã‚¤ãƒ¡ãƒ¼ã‚¸ãƒ•ã‚¡ã‚¤ãƒ«å
 	private void loadImage(String filename) {
 		ImageIcon icon = new ImageIcon(getClass().getResource("image/" + filename));
 		image = icon.getImage();
 	}
 
-	// ƒAƒjƒ[ƒVƒ‡ƒ“—pƒXƒŒƒbƒh
+	// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨ã‚¹ãƒ¬ãƒƒãƒ‰
 	protected class AnimationThread extends Thread {
 		public void run() {
 			while (true) {
-				// count‚ÌØ‚è‘Ö‚¦
+				// countã®åˆ‡ã‚Šæ›¿ãˆ
 				if(ani != 1){
 					if (count == 0) {
 						count = 1;
 					} else if (count == 1) {
 						count = 0;
 					}
-				// 300ƒ~ƒŠ•b‹x~(300ƒ~ƒŠ•b‚¨‚«‚É—EÒ‚ÌŠG‚ğØ‚è‘Ö‚¦)
+				// 300ãƒŸãƒªç§’ä¼‘æ­¢(300ãƒŸãƒªç§’ãŠãã«å‹‡è€…ã®çµµã‚’åˆ‡ã‚Šæ›¿ãˆ)
 				} try {
 					Thread.sleep(300);
 				} catch(InterruptedException e) {
