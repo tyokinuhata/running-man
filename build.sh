@@ -1,3 +1,3 @@
 #!/bin/sh
 
-javac MainFrame.java
+javac -encoding UTF-8 MainFrame.java
